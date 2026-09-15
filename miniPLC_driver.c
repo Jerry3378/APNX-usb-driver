@@ -1,13 +1,25 @@
 // SPDX-License-Identifier: GPL-2.0
 /*
- * USB Skeleton driver - 2.2
+ * APNX USB Driver
  *
- * Copyright (C) 2001-2004 Greg Kroah-Hartman (greg@kroah.com)
- * Copyright (C) 2026 JaemoPark (packjemo@gmail.com)
+ * Based on the Linux USB Skeleton Driver:
+ *   drivers/usb/usb-skeleton.c
  *
- * This driver is based on the 2.6.3 version of drivers/usb/usb-skeleton.c
- * and has been modified for the miniPLC project.
+ * Original copyright:
+ *   Copyright (C) 2001-2004 Greg Kroah-Hartman
+ *
+ * Modifications and APNX-specific implementation:
+ *   Copyright (C) 2026 JaemoPark
+ *
+ * This driver extends the USB Skeleton Driver with:
+ *   - APNX protocol framing
+ *   - FSM-based packet parsing
+ *   - CRC16 validation
+ *   - Endianness conversion
+ *   - kfifo-based packet buffering
+ *   - APNX-specific address and error handling
  */
+
 
 #include <linux/kernel.h>	//커널 개발시 쓰이는 기본 함수(printk, KERNER_INFO, min,max 매크로 사용)
 #include <linux/errno.h>	//에러 코드 정의 (-EINVAL, -EFAULT, -ENOMEM, -EBUSY 등). 커널 함수들이 실패할 때 이 값들을 리턴.
